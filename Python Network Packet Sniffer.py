@@ -29,14 +29,14 @@ if proto == 8:
        print(tab_2+ 'version: {} , header lenght: {} , ttl: {}'.format(version,header_length,ttl))
        print(tab_2+ 'protocol: {} , source: {} , dest: {}'.format(protoo,src,dest))
 
-        elif proto == 1:
+elif proto == 1:
           icmp_type, code, checksum=Icmp_packet(data)
           print(tab_1+ 'Icmp packet: ')
           print(tab_2+ 'type: {} , code: {} , checksum: {}'.format(icmp_type,code,checksum))
           print(tab_2 + 'data:' )
           print(format_multi_line(data_tab_3,data))
 #Tcp
-        elif protoo==6:
+elif protoo==6:
     (src_port, dest_port, sequence, acknowledgement, offset_reserved_flags)=Tcp_segment(data)
     print(tab_1 + 'TCP segment')
     print(tab_2 + 'source port: {} , destination port: {}'.format(src_port,dest_port))
@@ -45,16 +45,14 @@ if proto == 8:
     print(tab_3 + 'ARG: {} , ACK: {} , PSH: {} , RST: {}, SYN: {} , FIN: {}'.format(flag_arg,flag_ack,flag_push,flag_rst,flag_syn,flag_fin))
     print(format_multi_line(data_tab_3, data))
 
-        elif protoo==17:
+elif protoo==17:
     src_port, dest_port, size=Udp_segment(data)
     print(tab_1 + 'UDP segment')
     print(tab_2 + 'source port: {} , destination port: {} , lenght: {}'.format(src_port, dest_port, size))
-    else:
+else:
         print(tab_1 + 'data')
         print(format_multi_line(data_tab_2,data))
-else:
-print('data')
-print(format_multi_line(data_tab_1,data))
+
 
 # unpacking the ethernet frame and setting the source & destination mac to 2 variables and the protocol part to convert packet to bytes with
 # an overall number of 14 and return them
@@ -101,8 +99,8 @@ def Format_mulity_line(prefix,string,size=80):
     size -= length(prefix)
     if isinstance(string,bytess):
         string="".join(r'\x{:02x}'.format(byte) for byte in string)
-            if size % 2:
+        if size % 2:
                 size -=1
-            return '\n'.join([prefix + line for line in textwrap.wrap(string,size)])
+        return '\n'.join([prefix + line for line in textwrap.wrap(string,size)])
 
 
